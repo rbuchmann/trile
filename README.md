@@ -1,12 +1,17 @@
 # Trile
 
-A clojure library and some dirty shell helpers to help you compile
-cljs scripts on the fly.
+A clojure tool and some dirty shell helpers to help you compile cljs
+scripts on the fly.
+
+# Requirements
+
+md5sum, readlink, leiningen.
 
 ## Usage
 
-run ./install.sh
-put trile on your path
+- Run ./install.sh
+
+- Put the trile executable on your path
 
 Write any clojurescript for node with the
 
@@ -17,7 +22,7 @@ Write any clojurescript for node with the
 shebang. Example:
 
 ```clojure
-#!/home/rasmus/bin/trile
+#!/path/to/trile
 
 (defn -main [& args]
   (go (println (<! (stdin->chan))))
