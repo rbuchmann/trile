@@ -2,27 +2,27 @@
 
 set -e
 
-full_path=`readlink -f $1`
+full_path=`readlink -f "$1"`
 
-script_hash=`md5sum <<< full_path | awk '{ print $1 }'`
+script_hash=`md5sum <<< full_path | awk '{ print "$1" }'`
 
-script_name=`basename $full_path .cljs`"$script_hash"
+script_name=`basename "$full_path" .cljs`"$script_hash"
 
 src_path="src/$script_name"
 
 compiled="${script_name}.js"
 
-cd $HOME/.trile_scripts
+cd "$HOME/.trile_scripts"
 
 function compile_script {
-    mkdir -p $src_path
-    cat script_header.cljs <(sed 1d $full_path) script_footer.cljs > $src_path/core.cljs
-    sed -i "s/NS-NAME/$script_name/" $src_path/core.cljs
-    java -jar *.jar $script_name
+    mkdir -p "$src_path"
+    cat script_header.cljs <(sed 1d "$full_path") script_footer.cljs > "$src_path/core.cljs"
+    sed -i "s/NS-NAME/$script_name/" "$src_path/core.cljs"
+    java -jar *.jar "$script_name"
 }
 
-if ! [ -e $script_name.js ] || [ $full_path -nt $script_name.js ]; then
+if ! [ -e "$script_name.js" ] || [ "$full_path" -nt "$script_name.js" ]; then
     compile_script
 fi
 
-node $compiled
+node "$compiled"

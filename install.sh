@@ -4,10 +4,16 @@ set -e
 
 chmod +x trile
 
-lein uberjar
+echo "Building uberjar..."
 
-mkdir -p $HOME/.trile_scripts
+lein do clean, uberjar
 
-cp target/*standalone.jar $HOME/.trile_scripts/trile.jar
+echo "Copying..."
 
-cp resources/* $HOME/.trile_scripts
+mkdir -p "$HOME/.trile_scripts"
+
+cp target/*standalone.jar "$HOME/.trile_scripts/trile.jar"
+
+cp resources/* "$HOME/.trile_scripts"
+
+echo "Done!"
